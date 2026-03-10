@@ -3,33 +3,81 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.PIMPage;
 
 public class PIMTest extends BaseTest {
 
-    @Test(groups="regression")
-    public void navigatePIM(){
-        new DashboardPage(driver).goToPIM();
-        Assert.assertTrue(new PIMPage(driver).isPIMPage());
+    @Test
+    public void TC1_verifyPIMMenu(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        Assert.assertTrue(pim.isPIMPageDisplayed());
     }
 
-    @Test(groups="regression")
-    public void pimUrl(){
-        new DashboardPage(driver).goToPIM();
-        Assert.assertTrue(driver.getCurrentUrl().contains("pim"));
+    @Test
+    public void TC2_verifyPIMPage(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        Assert.assertTrue(pim.isPIMPageDisplayed());
     }
 
-    @Test(groups="regression")
-    public void pimRefresh(){
-        new DashboardPage(driver).goToPIM();
-        driver.navigate().refresh();
-        Assert.assertTrue(driver.getCurrentUrl().contains("pim"));
+    @Test
+    public void TC3_verifyEmployeeList(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        Assert.assertTrue(pim.isPIMPageDisplayed());
     }
 
-    @Test(groups="regression")
-    public void pimBack(){
-        new DashboardPage(driver).goToPIM();
-        driver.navigate().back();
-        Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"));
+    @Test
+    public void TC4_verifyAddEmployeeBtn(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+        pim.clickAddEmployee();
+    }
+
+    @Test
+    public void TC5_addEmployee(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+        pim.clickAddEmployee();
+
+        pim.addEmployee("John","Smith");
+    }
+
+    @Test
+    public void TC10_searchEmployee(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        pim.searchEmployee("John");
+    }
+
+    @Test
+    public void TC11_invalidSearch(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        pim.searchEmployee("random123");
+
+        Assert.assertTrue(pim.isNoRecord());
+    }
+
+    @Test
+    public void TC12_resetSearch(){
+
+        PIMPage pim = new PIMPage(driver);
+        pim.openPIM();
+
+        pim.clickReset();
     }
 }

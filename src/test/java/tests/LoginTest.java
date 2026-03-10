@@ -2,28 +2,36 @@ package tests;
 
 import base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.DashboardPage;
+import utilities.ExcelUtil;
 
 public class LoginTest extends BaseTest {
 
-    @Test(groups={"smoke","regression"})
-    public void verifyLogin(){
-        Assert.assertTrue(new DashboardPage(driver).isDashboardVisible());
+    @Test(dataProvider = "loginData")
+    public void loginDataDrivenTest(String username,String password){
+
+        loginPage.login(username,password);
     }
 
-    @Test(groups="regression")
-    public void dashboardUrl(){
-        Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"));
+    @DataProvider
+    public Object[][] loginData(){
+
+        return ExcelUtil.getLoginData();
     }
 
-    @Test(groups="regression")
-    public void pageTitle(){
-        Assert.assertTrue(driver.getTitle().contains("OrangeHRM"));
+    @Test
+    public void verifyLogout(){
+
+        loginPage.login("Admin","admin123");
+
+        loginPage.logout();
     }
 
-    @Test(groups="regression")
-    public void dashboardLoaded(){
-        Assert.assertTrue(new DashboardPage(driver).isDashboardVisible());
+    @Test
+    public void verifyForgotPassword(){
+
+        loginPage.clickForgotPassword();
     }
+
 }
