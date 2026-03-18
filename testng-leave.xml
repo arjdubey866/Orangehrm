@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Leave Suite">
+
+    <test name="Leave Tests">
+        <classes>
+            <class name="tests.AdminTest"/>
+        </classes>
+    </test>
+
+</suite>
