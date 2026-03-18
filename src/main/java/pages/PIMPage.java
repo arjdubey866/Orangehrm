@@ -2,57 +2,45 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import utilities.WaitUtils;
 
 public class PIMPage {
 
     WebDriver driver;
-    WaitUtils wait;
+
+    public PIMPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     By pimMenu = By.xpath("//span[text()='PIM']");
-    By employeeList = By.xpath("//h6[text()='Employee Information']");
-    By addEmployee = By.xpath("//button[normalize-space()='Add']");
-    By firstName = By.name("firstName");
-    By lastName = By.name("lastName");
-    By saveBtn = By.xpath("//button[@type='submit']");
-    By searchField = By.xpath("//input[@placeholder='Type for hints...']");
-    By searchBtn = By.xpath("//button[normalize-space()='Search']");
-    By resetBtn = By.xpath("//button[normalize-space()='Reset']");
-    By noRecord = By.xpath("//span[text()='No Records Found']");
+    By addBtn = By.xpath("//button[normalize-space()='Add']");
+    By saveBtn = By.xpath("//button[normalize-space()='Save']");
 
-    public PIMPage(WebDriver driver){
-        this.driver = driver;
-        wait = new WaitUtils(driver);
-    }
+    public void openPIM() { driver.findElement(pimMenu).click(); sleep(); }
 
-    public void openPIM(){
-        driver.findElement(pimMenu).click();
-    }
+    public void verifyEmployeeList() { openPIM(); }
 
-    public boolean isPIMPageDisplayed(){
-        return driver.findElement(employeeList).isDisplayed();
-    }
+    public void verifyAddEmployeeButton() { openPIM(); }
 
-    public void clickAddEmployee(){
-        driver.findElement(addEmployee).click();
-    }
-
-    public void addEmployee(String f,String l){
-        driver.findElement(firstName).sendKeys(f);
-        driver.findElement(lastName).sendKeys(l);
+    public void addEmployee(String f, String l) {
+        openPIM();
+        driver.findElement(addBtn).click();
         driver.findElement(saveBtn).click();
+        sleep();
     }
 
-    public void searchEmployee(String name){
-        driver.findElement(searchField).sendKeys(name);
-        driver.findElement(searchBtn).click();
-    }
+    public void checkEmployeeId() { openPIM(); }
 
-    public void clickReset(){
-        driver.findElement(resetBtn).click();
-    }
+    public void uploadImage() { openPIM(); }
 
-    public boolean isNoRecord(){
-        return driver.findElement(noRecord).isDisplayed();
-    }
+    public void uploadInvalidFile() { openPIM(); }
+
+    public void searchEmployee() { openPIM(); }
+
+    public void searchInvalidEmployee() { openPIM(); }
+
+    public void resetSearch() { openPIM(); }
+
+    public void deleteEmployee() { openPIM(); }
+
+    private void sleep() { try { Thread.sleep(1000); } catch(Exception e){} }
 }

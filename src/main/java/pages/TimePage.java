@@ -9,15 +9,15 @@ public class TimePage {
     WebDriver driver;
     WaitUtils wait;
 
-    By header = By.xpath("//h6[contains(text(),'Timesheet')]");
+    By header = By.xpath("//h6[text()='Time']");
 
-    public TimePage(WebDriver driver){
+    public TimePage(WebDriver driver) {
         this.driver = driver;
         wait = new WaitUtils(driver);
     }
 
-    public boolean isTimePage(){
-        wait.waitForVisible(header);
+    public boolean isTimePage() {
+        wait.waitForElementVisible(header); // ✅ FIXED
         return driver.findElement(header).isDisplayed();
     }
 }

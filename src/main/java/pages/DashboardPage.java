@@ -12,21 +12,37 @@ public class DashboardPage {
     By dashboard = By.xpath("//h6[text()='Dashboard']");
     By admin = By.xpath("//span[text()='Admin']");
     By pim = By.xpath("//span[text()='PIM']");
+    By leave = By.xpath("//span[text()='Leave']");
     By time = By.xpath("//span[text()='Time']");
     By recruitment = By.xpath("//span[text()='Recruitment']");
 
-    public DashboardPage(WebDriver driver){
+    public DashboardPage(WebDriver driver) {
         this.driver = driver;
         wait = new WaitUtils(driver);
     }
 
-    public boolean isDashboardVisible(){
-        wait.waitForVisible(dashboard);
+    public boolean isDashboardVisible() {
+        wait.waitForElementVisible(dashboard); // ✅ FIXED
         return driver.findElement(dashboard).isDisplayed();
     }
 
-    public void goToAdmin(){ driver.findElement(admin).click(); }
-    public void goToPIM(){ driver.findElement(pim).click(); }
-    public void goToTime(){ driver.findElement(time).click(); }
-    public void goToRecruitment(){ driver.findElement(recruitment).click(); }
+    public void goToAdmin() {
+        wait.waitForElementClickable(admin).click();
+    }
+
+    public void goToPIM() {
+        wait.waitForElementClickable(pim).click();
+    }
+
+    public void goToLeave() {
+        wait.waitForElementClickable(leave).click();
+    }
+
+    public void goToTime() {
+        wait.waitForElementClickable(time).click();
+    }
+
+    public void goToRecruitment() {
+        wait.waitForElementClickable(recruitment).click();
+    }
 }

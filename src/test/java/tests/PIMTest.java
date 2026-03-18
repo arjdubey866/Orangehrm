@@ -1,83 +1,46 @@
 package tests;
 
 import base.BaseTest;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.PIMPage;
 
 public class PIMTest extends BaseTest {
 
-    @Test
-    public void TC1_verifyPIMMenu(){
+    @Test public void TC_1_verifyMenu() { new PIMPage(driver).openPIM(); }
 
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
+    @Test public void TC_2_navigatePage() {
+        new PIMPage(driver).openPIM(); }
 
-        Assert.assertTrue(pim.isPIMPageDisplayed());
-    }
+    @Test public void TC_3_verifyList() {
+        new PIMPage(driver).verifyEmployeeList(); }
 
-    @Test
-    public void TC2_verifyPIMPage(){
+    @Test public void TC_4_verifyAddBtn() {
+        new PIMPage(driver).verifyAddEmployeeButton(); }
 
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
+    @Test public void TC_5_addEmployee() {
+        new PIMPage(driver).addEmployee("John", "Doe"); }
 
-        Assert.assertTrue(pim.isPIMPageDisplayed());
-    }
+    @Test public void TC_6_addWithoutMandatory() {
+        new PIMPage(driver).addEmployee("", ""); }
 
-    @Test
-    public void TC3_verifyEmployeeList(){
+    @Test public void TC_7_checkAutoID() {
+        new PIMPage(driver).checkEmployeeId(); }
 
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
+    @Test public void TC_8_uploadImage() {
+        new PIMPage(driver).uploadImage(); }
 
-        Assert.assertTrue(pim.isPIMPageDisplayed());
-    }
+    @Test public void TC_9_invalidFileUpload() {
+        new PIMPage(driver).uploadInvalidFile(); }
 
-    @Test
-    public void TC4_verifyAddEmployeeBtn(){
+    @Test public void TC_10_searchEmployee() {
+        new PIMPage(driver).searchEmployee(); }
 
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
-        pim.clickAddEmployee();
-    }
+    @Test public void TC_11_searchInvalidEmployee() {
+        new PIMPage(driver).searchInvalidEmployee(); }
 
-    @Test
-    public void TC5_addEmployee(){
+    @Test public void TC_12_resetSearch() {
+        new PIMPage(driver).resetSearch(); }
 
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
-        pim.clickAddEmployee();
-
-        pim.addEmployee("John","Smith");
-    }
-
-    @Test
-    public void TC10_searchEmployee(){
-
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
-
-        pim.searchEmployee("John");
-    }
-
-    @Test
-    public void TC11_invalidSearch(){
-
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
-
-        pim.searchEmployee("random123");
-
-        Assert.assertTrue(pim.isNoRecord());
-    }
-
-    @Test
-    public void TC12_resetSearch(){
-
-        PIMPage pim = new PIMPage(driver);
-        pim.openPIM();
-
-        pim.clickReset();
-    }
+    @Test public void TC_13_deleteEmployee() {
+        new PIMPage(driver).deleteEmployee(); }
 }

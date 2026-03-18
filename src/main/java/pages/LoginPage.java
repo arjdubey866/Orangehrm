@@ -2,7 +2,6 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import utilities.WaitUtils;
 
 public class LoginPage {
@@ -10,52 +9,47 @@ public class LoginPage {
     WebDriver driver;
     WaitUtils wait;
 
-    By username = By.name("username");
-    By password = By.name("password");
-    By loginBtn = By.xpath("//button[@type='submit']");
-    By errorMsg = By.xpath("//p[contains(@class,'alert')]");
-    By requiredMsg = By.xpath("//span[text()='Required']");
-    By userMenu = By.xpath("//p[@class='oxd-userdropdown-name']");
-    By logout = By.xpath("//a[text()='Logout']");
-    By forgotPassword = By.xpath("//p[text()='Forgot your password?']");
-
-    public LoginPage(WebDriver driver){
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
         wait = new WaitUtils(driver);
     }
 
-    public void enterUsername(String user){
-        wait.waitForVisible(username).sendKeys(user);
-    }
+    By username = By.name("username");
+    By password = By.name("password");
+    By loginBtn = By.xpath("//button[@type='submit']");
+    By errorMsg = By.xpath("//p[contains(@class,'alert-content-text')]");
+    By requiredMsg = By.xpath("//span[text()='Required']");
+    By profileMenu = By.xpath("//p[@class='oxd-userdropdown-name']");
+    By logoutBtn = By.xpath("//a[text()='Logout']");
+    By forgotPassword = By.xpath("//p[text()='Forgot your password?']");
 
-    public void enterPassword(String pass){
+    public void login(String user, String pass) {
+
+        wait.waitForElementVisible(username).clear();
+        driver.findElement(username).sendKeys(user);
+
+        driver.findElement(password).clear();
         driver.findElement(password).sendKeys(pass);
+
+        wait.waitForElementClickable(loginBtn).click();
+
+        wait.waitForUrlContains("dashboard");
     }
 
-    public void clickLogin(){
-        driver.findElement(loginBtn).click();
+    public void logout() {
+        wait.waitForElementClickable(profileMenu).click();
+        wait.waitForElementClickable(logoutBtn).click();
     }
 
-    public void login(String user,String pass){
-        enterUsername(user);
-        enterPassword(pass);
-        clickLogin();
+    public void clickForgotPassword() {
+        wait.waitForElementClickable(forgotPassword).click();
     }
 
-    public boolean isErrorDisplayed(){
-        return driver.findElement(errorMsg).isDisplayed();
+    public boolean isErrorDisplayed() {
+        return wait.waitForElementVisible(errorMsg).isDisplayed();
     }
 
-    public boolean isRequiredDisplayed(){
-        return driver.findElement(requiredMsg).isDisplayed();
-    }
-
-    public void logout(){
-        driver.findElement(userMenu).click();
-        driver.findElement(logout).click();
-    }
-
-    public void clickForgotPassword(){
-        driver.findElement(forgotPassword).click();
+    public boolean isRequiredDisplayed() {
+        return wait.waitForElementVisible(requiredMsg).isDisplayed();
     }
 }
